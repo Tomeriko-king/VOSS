@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
             print("failed to log in")
 
 
-if __name__ == "__main__":
+def start_gui():
     app = QApplication([])
 
     window = MainWindow()
