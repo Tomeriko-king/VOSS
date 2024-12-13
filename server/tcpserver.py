@@ -34,5 +34,3 @@ def start_server():
 
     # Close the client socket connection
     client_socket.close()
-
-start_server()
