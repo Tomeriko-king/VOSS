@@ -1,10 +1,10 @@
+from utilities import Utilities
+
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QLabel
 from PIL import ImageGrab
 from PIL import Image
 from datetime import datetime
-
-from utilities import Utilities
 
 
 class MainWindow(QMainWindow):
