@@ -1,6 +1,36 @@
 import mediapipe as mp
 import cv2
+from email_sender import EmailSender
+from security_picture import security_picture
+from datetime import datetime
 from google.protobuf.json_format import MessageToDict
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+
+
+def send_the_email():
+    current_datetime = datetime.now()
+    formatted_date = current_datetime.strftime("%Y-%m-%d")
+    formatted_time = current_datetime.strftime("%H:%M:%S")
+
+#    security_picture()
+    image_path = 'security_image.jpg'
+
+    # Your email credentials
+    sender_email = 'tomerklein9@gmail.com'
+    sender_password = ''  # TODO
+
+    # Receiver's email address
+    receiver_email = 'tomerklein9@gmail.com'
+    king = EmailSender(sender_email, sender_password)
+
+    # Create the email content
+    subject = 'Hacking attempt alert'
+    body = f'Someone tried to hack in the app and failed to log in after 3 attempts. \n Date: {formatted_date} \n Time: {formatted_time}'
+    king.send_email(subject, body, image_path, [receiver_email])
 
 
 class Utilities:
@@ -58,6 +88,7 @@ class Utilities:
                         password = []
 
                     if test == 3:
+                        send_the_email()
                         return False
 
                     if password == secret:
