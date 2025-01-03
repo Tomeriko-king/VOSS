@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Button Command Example")
 
     def on_button_click_password(self):
-        self.success_login = self.utils.passi()
+        self.success_login = self.utils.authenticate()
 
     # Method that will be called when the button is clicked
     def on_button_click(self):

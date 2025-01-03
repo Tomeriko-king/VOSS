@@ -1,4 +1,5 @@
 import socket
+from enum import Enum
 from threading import Thread
 
 from ftpserver import start_ftp_server
@@ -28,14 +29,17 @@ def start_server():
 
 def handle_connection(client_socket: socket.socket):
     # Receive data from the client
-    message = client_socket.recv(1024).decode('utf-8')
-    print(f"Received from client: {message}")
+    while True:
+        message = client_socket.recv(1024).decode('utf-8')
+        print(f"Received from client: {message}")
 
-    if message == 'start':
-        client_socket.send("start2".encode('utf-8'))
-        start_ftp_server()
-        print("ftp started")
-        client_socket.send("start2".encode('utf-8'))
+        client_socket.send(b'received')
+
+    # if message == 'start':
+    #     client_socket.send("start2".encode('utf-8'))
+    #     start_ftp_server()
+    #     print("ftp started")
+    #     client_socket.send("start2".encode('utf-8'))
 
     # Close the client socket connection
     client_socket.close()

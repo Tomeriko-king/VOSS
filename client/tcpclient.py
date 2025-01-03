@@ -1,4 +1,6 @@
 import socket
+from time import sleep
+
 from ftpclient import clientdt
 from ftplib import FTP
 from PIL import ImageGrab
@@ -17,19 +19,21 @@ def start_client():
     client_socket.connect((host, port))
     print(f"Connected to server at {host}:{port}")
 
-    # Send a message to the server
-    message = "start"
-    client_socket.send(message.encode('utf-8'))
+    while True:
+        # Send a message to the server
+        message = "start"
+        client_socket.send(message.encode('utf-8'))
 
-    response = client_socket.recv(1024).decode('utf-8')
-    print(response)
+        response = client_socket.recv(1024).decode('utf-8')
+        print(response)
 
-    if response == 'start2':
-        print("received start2")
-        clientdt()
-        print("started the client")
+        sleep(5)
+
+    # if response == 'start2':
+    #     print("received start2")
+    #     clientdt()
+    #     print("started the client")
 
     # Close the socket connection
     client_socket.close()
 
-start_client()

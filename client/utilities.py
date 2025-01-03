@@ -1,4 +1,5 @@
 import os
+from enum import Enum
 
 import mediapipe as mp
 import cv2
@@ -22,7 +23,7 @@ def send_the_email():
     formatted_date = current_datetime.strftime("%Y-%m-%d")
     formatted_time = current_datetime.strftime("%H:%M:%S")
 
-#    security_picture()
+    #    security_picture()
     image_path = 'security_picture.jpg'
 
     # Your email credentials
@@ -39,8 +40,13 @@ def send_the_email():
     king.send_email(subject, body, image_path, [receiver_email])
 
 
+class HandSide(Enum):
+    Right = 'Right'
+    Left = 'Left'
+
+
 class Utilities:
-    def passi(self):
+    def authenticate(self) -> bool:
         # Initializing the Model
         mpHands = mp.solutions.hands
         hands = mpHands.Hands(
@@ -52,12 +58,6 @@ class Utilities:
 
         # Start capturing video from webcam
         cap = cv2.VideoCapture(0)
-
-        password = []
-        secret = ['Right', 'Right', 'Left']
-        c = 0
-        test = 0
-
         check = True
 
         while True:
@@ -80,28 +80,6 @@ class Utilities:
                     for i in results.multi_handedness:
                         # Return whether it is Right or Left Hand
                         label = MessageToDict(i)['classification'][0]['label']
-
-                    password.insert(c, label)
-                    c = c + 1
-                    print(password)
-                    print(password[0:c] != secret[0:c])
-
-                    if password[0:c] != secret[0:c]:
-                        print(test)
-
-                        test = test + 1
-                        c = 0
-                        password = []
-
-                    if test == 3:
-                        security_picture()
-                        send_the_email()
-                        print("incorrect password")
-                        return False
-
-                    if password == secret:
-                        print("youre in")
-                        return True
 
             else:
                 check = True

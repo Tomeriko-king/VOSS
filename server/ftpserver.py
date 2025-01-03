@@ -3,13 +3,13 @@ from ftplib import FTP
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
-from PIL import ImageGrab
+# from PIL import ImageGrab
 
 
 def start_ftp_server():
-    screenshot = ImageGrab.grab()
-    screenshot.save("screenshot.png")
-    screenshot.close()
+    # screenshot = ImageGrab.grab()
+    # screenshot.save("screenshot.png")
+    # screenshot.close()
 
     # Instantiate the authorizer (controls authentication)
     authorizer = DummyAuthorizer()
