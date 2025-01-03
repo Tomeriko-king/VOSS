@@ -1,3 +1,5 @@
+import os
+
 import mediapipe as mp
 import cv2
 from email_sender import EmailSender
@@ -10,6 +12,10 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def send_the_email():
     current_datetime = datetime.now()
@@ -21,7 +27,7 @@ def send_the_email():
 
     # Your email credentials
     sender_email = 'tomerklein9@gmail.com'
-    sender_password = ''  # TODO
+    sender_password = os.getenv('GMAIL_APP_PASSWORD')
 
     # Receiver's email address
     receiver_email = 'tomerklein9@gmail.com'
