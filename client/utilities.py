@@ -23,7 +23,7 @@ def send_the_email():
     formatted_time = current_datetime.strftime("%H:%M:%S")
 
 #    security_picture()
-    image_path = 'security_image.jpg'
+    image_path = 'security_picture.jpg'
 
     # Your email credentials
     sender_email = 'tomerklein9@gmail.com'
@@ -94,7 +94,9 @@ class Utilities:
                         password = []
 
                     if test == 3:
+                        security_picture()
                         send_the_email()
+                        print("incorrect password")
                         return False
 
                     if password == secret:

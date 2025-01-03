@@ -13,18 +13,18 @@ class EmailSender:
         self.password = password
 
     def send_email(self, subject: str, body: str, image_path: str, recipients: list[str]) -> None:
-        msg = MIMEText(body)
+        msg = MIMEMultipart()
+
         msg['Subject'] = subject
         msg['From'] = self.sender
         msg['To'] = ', '.join(recipients)
+
+        msg.attach(MIMEText(body, 'plain'))
+        if image_path:
+            with open(image_path, 'rb') as img_file:
+                img = MIMEImage(img_file.read())
+            msg.attach(img)
+
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
             smtp_server.login(self.sender, self.password)
-            # msg.attach(MIMEText(body, 'plain'))
-            # with open(image_path, 'rb') as img_file:
-            #     img = MIMEImage(img_file.read())
-            #     img.add_header('Content-ID', '<image1>')  # Optional: Use this if you want to display inline
-            #     msg.attach(img)
             smtp_server.sendmail(self.sender, recipients, msg.as_string())
-
-
-
